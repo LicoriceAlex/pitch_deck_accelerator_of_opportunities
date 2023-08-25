@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+    <link rel="icon" href="{% static "img/logo.png" %}" type="image">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" style="height: 100px;">
+        <div class="container">
+            <a class="navbar-brand" href="#first-block">
+                <img src="{% static "/img/logo.png" %}"
+                     height="70"
+                     class="d-inline-block align-top"
+                     alt="">
+              </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pitch-deck-faq">Что такое Pitch Deck</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'generator:pitch-deck' %}">Сгенерировать Pitch-Deck</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+    <div class="jumbotron jumbotron-fluid text-center" id="first-block">
+        <div class="container">
+            <h1 class="display-4">Сделайте первый шаг к успешному будущему вашего проекта!</h1>
+            <p class="lead">Создайте впечатляющий Pitch Deck, который отразит все преимущества и потенциал вашего стартапа.</p>
+            <a href="{% url 'generator:pitch-deck' %}" class="btn btn-primary btn-lg radius brand-color">Сгенерировать Pitch-Deck</a>
+        </div>
+    </div>
+
+    <section id="about" class="py-5">
+        <div class="container brand-color radius">
+            <div class="row">
+                <div class="col-md-6 text-white">
+                    <h2 class="pb-3 padding">O нас</h2>
+                    <p class="fs-3 padding">
+                        АКСЕЛЕРАТОР ВОЗМОЖНОСТЕЙ — организатор технологических и инвестиционных мероприятий, оператор инновационной деятельности ИНТЦ МГУ «Воробьевы горы»
+                    </p>
+                </div>
+                <div class="col-md-6 padding">
+                    <img src="{% static "img/about.png" %}" alt="About Us" class="img-fluid radius">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitch-deck-faq" class="py-6">
+        <div class="container brand-color-lite radius">
+            <div class="row">
+                <div class="col-md text-white text-center">
+                    <h1 class="pb-3 padding">Что такое Pitch Deck?</h1>
+                    <p class="fs-3 padding">
+                        Pitch-Deck представляет собой презентацию-тизер проекта/компании для инвесторов, партнеров,
+                        журналистов и других заинтересованных лиц. Цель презентации - привлечение дополнительного
+                        финансирования (инвестиций)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% comment %} <section id="pitch-deck-faq" class="py-6">
+        <div class="container brand-color-lite radius">
+            <div class="row">
+                <div class="col-md text-white text-center">
+                    <h1 class="pb-3 padding">Что такое Pitch Deck?</h1>
+                    <p class="fs-3 padding">
+                        Pitch-Deck представляет собой презентацию-тизер проекта/компании для инвесторов, партнеров,
+                        журналистов и других заинтересованных лиц. Цель презентации - привлечение дополнительного
+                        финансирования (инвестиций)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    <section id="problems" class="py-5">
+        <div class="container brand-color-lite radius">
+            <h1 class="pb-3 padding text-center text-white">Какие проблемы решает генератор Pitch Deck</h1>
+            <div class="row">
+                <div class="col-md-4 padding-for-problems">
+                    <div class="p-4 radius brand-color">
+                        <h2 class="text-white fw-bold">Недостаток экспертизы</h2>
+                        <p class="fs-5 text-white">Проблемой для стартапов является недостаток экспертизы для проведения необходимых исследований и
+                            корректного отражения их результатов в Pitch Deck. Не всегда у стартапов есть нужные знания в области
+                            маркетинга, финансов и анализа рынка, что затрудняет создание убедительной и информативной
+                            презентации для привлечения инвестиций.
+                            Таким образом, основателям компании зачастую приходится обращаться к консалтинговым компаниям,
+                            сопровождающим сделку и берущим подготовку документов на себя.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 padding-for-problems">
+                    <div class="p-4 radius brand-color">
+                        <h2 class="text-white fw-bold">Недостаток времени</h2>
+                        <p class="fs-5 text-white">Молодым компаниям для привлечения инвестиций требуется подготовить целый пакет документов, одним
+                            из которых является Pitch Deck. Особенностью стартапов является сравнительного молодая и небольшая
+                            команда, у которой чисто физически не хватает времени на разработку инвестиционных материалов, ведь
+                            они полностью погружены в процесс разработки и улучшения продукта или сервиса.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 padding-for-problems">
+                    <div class="p-4 radius brand-color">
+                        <h2 class="text-white fw-bold">Недостаток средств</h2>
+                        <p class="fs-5 text-white">Для многих стартапов ограниченные финансы создают преграду при разработке качественного Pitch Deck.
+                            Отсутствие достаточных средств для найма профессиональных консультантов, дизайнеров и копирайтеров,
+                            а также для проведения исследований рынка, может привести к созданию менее привлекательной и
+                            малоинформативной презентации, что затрудняет привлечение инвестиций.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% comment %} <section id="forms" class="py-5">
+        <div class="container mt-5">
+            <h1 class="text-center">Задать вопрос модели</h1>
+            <div class="mt-4">
+                <form method="POST">
+                  {% csrf_token %}
+                    <div class="form-group">
+                      <label class="h4" for="question">Вопрос</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" name='question' rows="2">{{ form.question.value }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="h4" for='context'>Контекст</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea2" name='context' rows="7">{{ form.context.value}}</textarea>
+                      </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-lg">Задать вопрос</button>
+                    </div>
+                </form>
+            </div>
+            <div class="mt-4">
+                  <div class="form-group">
+                    <label class="h4" for='answer'>Ответ модели</label>
+                    <textarea class="form-control" name="answer" rows="3" readonly>{{ answer }}</textarea>
+                  </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+    <footer class="text-white text-center py-3 brand-color">
+        <p>&copy; 2023 DeviA'nts. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

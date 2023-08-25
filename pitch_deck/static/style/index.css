@@ -1,0 +1,26 @@
+.navbar-nav .nav-link {
+    color: #2963f2;
+}
+body {
+    padding-top: 120px;
+}
+
+.brand-color {
+    background-color: #2963f2;
+}
+
+.brand-color-lite {
+    background-color: #58a4f1;
+}
+
+.padding {
+    padding: 30px;
+}
+
+.padding-for-problems {
+    padding: 50px;
+}
+
+.radius {
+    border-radius: 30px;
+}
