@@ -8,16 +8,18 @@ class PitchDeckForm(forms.Form):
     )
     problem = forms.CharField(
         label='Проблема',
-        required=False
+        widget=forms.Textarea(attrs={'rows': '2'}),
+        required=True
     )
     description = forms.CharField(
         label='Описание',
-        widget=forms.Textarea(attrs={'rows': '2'}),
+        widget=forms.Textarea(attrs={'rows': '3'}),
         required=True
     )
     solution = forms.CharField(
         label='Решение',
-        required=False
+        widget=forms.Textarea(attrs={'rows': '3'}),
+        required=True
     )
     market_size = forms.CharField(
         label='Размер рынка',
@@ -37,25 +39,26 @@ class PitchDeckForm(forms.Form):
     )
     team = forms.CharField(
         label='Ваша команда',
-        required=False
+        widget=forms.Textarea(attrs={'rows': '2'}),
+        required=True
     )
     background_and_current_investors = forms.CharField(
         label='Бэкграунд, текущие инвесторы',
-        required=False
+        widget=forms.Textarea(attrs={'rows': '3'}),
+        required=True
     )
-    amount_of_investments = forms.IntegerField(
-        label='Объем необходимых инвестиций',
-        required=False
-    )
-    ivestments_direction = forms.CharField(
-        label='Куда будут потрачены инвестиции',
-        required=False
+    ivestments = forms.CharField(
+        label='Необходимые инверстиции, и куда они будут направлены',
+        widget=forms.Textarea(attrs={'rows': '2'}),
+        required=True
     )
     roadmap = forms.CharField(
         label='Роадмап',
-        required=False
+        widget=forms.Textarea(attrs={'rows': '2'}),
+        required=True
     )
     contact_information = forms.CharField(
         label='Контактная информация',
-        required=False
+        widget=forms.Textarea(attrs={'rows': '2'}),
+        required=True
     )

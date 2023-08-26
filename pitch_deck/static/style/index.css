@@ -9,6 +9,10 @@ body {
     background-color: #2963f2;
 }
 
+.color-text {
+    color: #2963f2; 
+}
+
 .brand-color-lite {
     background-color: #58a4f1;
 }
@@ -24,3 +28,11 @@ body {
 .radius {
     border-radius: 30px;
 }
+
+.deck-faq-button{
+    margin-right: 30px;
+}
+
+/* .form-container {
+    color: #2963f2;
+} */

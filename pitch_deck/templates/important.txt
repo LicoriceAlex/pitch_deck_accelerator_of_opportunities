@@ -1,3 +1,16 @@
 Цвет основной белый
 Цвет кнопок #2963f2
 
+PitchDeckGenerator
+    template
+
+    create_ppt
+    delete_first_slides
+
+
+
+Преза полностью шаблон
+create_ppt(slides_content, template_choice, presentation_title, insert_image)
+delete_first_slides(presentation, first_num)
+Готовая преза
+
