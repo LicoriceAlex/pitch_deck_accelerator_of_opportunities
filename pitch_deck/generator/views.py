@@ -8,7 +8,7 @@ from django.conf import settings
 
 from .forms import PitchDeckForm
 from .generator import PitchDeckGenerator
-from .market_size import parse_money
+from .parsers import get_tam_sam_som, initialise_driver
 
 
 def index(request):
@@ -22,21 +22,13 @@ def pitch_deck(request):
         form = PitchDeckForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
-            titles = [
-                'Название', 'Проблема', 'Описание', 'Решение',
-                'Размер рынка', 'Конкуренты', 'Бизнес модель',
-                'Трекшн и финансы', 'Команда',
-                'Бекграунд, текущие инвесторы',
-                'Объем необходимых инвестиций, куда будут направлены средства',
-                'Роадмап', 'Контактная информация'
-            ]
+            # driver = initialise_driver()
+            # tam, sam, som, conc = get_tam_sam_som(driver, region="Москва", okved="611000", market="Gaming", our_part=0.05)
+            # driver.quit()
+            # print(tam, sam, som, conc)
 
-            content = list(form.cleaned_data.values())
-            slides_content = [
-                {'title': i, 'content': j} for i, j in zip(titles, content)
-            ]
 
-            print(slides_content)
+            # print(form.cleaned_data.get('revenue'))
 
             timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             title = f'presentation-{timestamp}'

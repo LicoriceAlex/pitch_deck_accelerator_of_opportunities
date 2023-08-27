@@ -25,22 +25,7 @@ class PitchDeckGenerator:
                                      f'{template_name}.pptx')
 
     def create_pptx(self):
-        from pptx import Presentation
-#         prs = Presentation(self.template)
-#         title_slide_layout = prs.slide_layouts[0]
-#         slide = prs.slides.add_slide(title_slide_layout)
-#         title = slide.shapes.title
-
-#         title.text = self.slides_content.get('name')
-# # 13.33 x 7.5 inches
-#         image_path = self.logo_path
-#         left = Inches(13.33/2 - 3/2)  # X-координата
-#         top = Inches(7.5/2)   # Y-координата
-#         width = Inches(3)  # Ширина изображения
-#         height = Inches(3)  # Высота изображения
-#         pic = slide.shapes.add_picture(image_path, left, top, width, height)
-
-#         self.delete_first_slides(prs, 1)
+        # from pptx import Presentation
         prs = Presentation(self.template)
 
         # Слайд 1
@@ -81,16 +66,24 @@ class PitchDeckGenerator:
         pic4 = slide4.shapes.add_picture(image_path, left, top, width, height)
 
         # Слайд 5
-        # TAM CAM COM
+        slide5 = prs.slides[4]
+        slide5.placeholders[1].text = 'TAM\n\nSAM\n\nSOM'
 
         # Слайд 6
-
-        slide6 = prs.slides[5]
-        x, y, cx, cy = Inches(3), Inches(2), Inches(8), Inches(6)
-        shape = slide6.shapes.add_table(9, 2, x, y, cx, cy)
+        # Таблица бизнес модель
+        # slide6 = prs.slides[5]
+        # x, y, cx, cy = Inches(3), Inches(2), Inches(8), Inches(6)
+        # shape = slide6.shapes.add_table(9, 2, x, y, cx, cy)
 
         # Слайд 7
-        # Трекшн и финансы
+        slide7 = prs.slides[6]
+        slide7.placeholders[1].text = 'Здесь будет текст'
+        left = Inches(13.33/2 + 3/2 + 1)  # X-координата
+        top = Inches(7.5/2 - 1.25)   # Y-координата
+        width = Inches(3)  # Ширина изображения
+        height = Inches(3)  # Высота изображения
+        pic7 = slide7.shapes.add_picture(image_path, left, top, width, height)
+
 
         # Слайд 8
         slide8 = prs.slides[7]

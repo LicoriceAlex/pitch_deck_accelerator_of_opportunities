@@ -30,9 +30,17 @@ class PitchDeckForm(forms.Form):
         required=True,
         help_text='На каком рынке вы себя позиционируете (Hardware, IndustrialTech и.т.д)?'
     )
-    percentage_of_som_from_sam = forms.IntegerField(
+    okved = forms.CharField(
+        label='ОКВЕД',
+        required=True
+    )
+    region = forms.CharField(
+        label='Регион, в котором вы развиваете бизнес',
+        required=True
+    )
+    percentage_of_som_from_sam = forms.DecimalField(
         label='Процент SOM от SAM',
-        help_text='Укажите значение в процентах',
+        help_text='Укажите значение в процентах от 0 до 1',
         required=True
     )
     bm_consumer_segments = forms.CharField(
