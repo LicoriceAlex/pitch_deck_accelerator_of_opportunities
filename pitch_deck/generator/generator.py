@@ -5,15 +5,18 @@ from PIL import Image
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.util import Inches, Cm, Pt
+from pptx.enum.text import PP_ALIGN
+from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT
+from pptx.dml.color import RGBColor
 
 from django.conf import settings
 
 
 class PitchDeckGenerator:
-    def __init__(self, slides_content,
+    def __init__(self, content,
                  template_name, logo_path,
                  presentation_path) -> None:
-        self.slides_content = slides_content
+        self.content = content
         self.logo_path = logo_path
         self.presentation_path = presentation_path
         self.template = os.path.join(settings.BASE_DIR,
@@ -21,76 +24,150 @@ class PitchDeckGenerator:
                                      'pres_templates',
                                      f'{template_name}.pptx')
 
-    def delete_first_slides(self, presentation, first_num):
-        slide_ids = reversed(range(first_num))
-        for slide_id in slide_ids:
-            if slide_id < len(presentation.slides):
-                xml_slides = presentation.slides._sldIdLst
-                slides = list(xml_slides)
-                xml_slides.remove(slides[slide_id])
+    def create_pptx(self):
+        from pptx import Presentation
+#         prs = Presentation(self.template)
+#         title_slide_layout = prs.slide_layouts[0]
+#         slide = prs.slides.add_slide(title_slide_layout)
+#         title = slide.shapes.title
 
-    def create_ppt(self):
+#         title.text = self.slides_content.get('name')
+# # 13.33 x 7.5 inches
+#         image_path = self.logo_path
+#         left = Inches(13.33/2 - 3/2)  # X-координата
+#         top = Inches(7.5/2)   # Y-координата
+#         width = Inches(3)  # Ширина изображения
+#         height = Inches(3)  # Высота изображения
+#         pic = slide.shapes.add_picture(image_path, left, top, width, height)
 
+#         self.delete_first_slides(prs, 1)
         prs = Presentation(self.template)
 
-        title_slide_layout = prs.slide_layouts[0]
-        content_slide_layout = prs.slide_layouts[1]
+        # Слайд 1
+        slide1 = prs.slides[0]
+        slide1.shapes.title.text = self.content.get('name')
+        image_path = self.logo_path
+        left = Inches(13.33/2 - 3/2)  # X-координата
+        top = Inches(7.5/2 + 0.25)   # Y-координата
+        width = Inches(3)  # Ширина изображения
+        height = Inches(3)  # Высота изображения
+        pic = slide1.shapes.add_picture(image_path, left, top, width, height)
 
-        # # add title slide
-        # slide = prs.slides.add_slide(title_slide_layout)
-        # title = slide.shapes.title
-        # title.text = presentation_title
+        # Слайд 2
+        slide2 = prs.slides[1]
+        slide2.placeholders[1].text = self.content.get('problem')
+        left = Inches(13.33/2 + 3/2 + 1)  # X-координата
+        top = Inches(7.5/2 - 1.25)   # Y-координата
+        width = Inches(3)  # Ширина изображения
+        height = Inches(3)  # Высота изображения
+        pic2 = slide2.shapes.add_picture(image_path, left, top, width, height)
 
-        # #add subtitle
-        # subtitle = slide.placeholders[1]
-        # subtitle.text = f"Presented by {presenter_name}"
+        # Слайд 3
+        slide3 = prs.slides[2]
+        slide3.placeholders[1].text = self.content.get('description')
+        left = Inches(13.33/2 - 3/2 - 4)  # X-координата
+        top = Inches(7.5/2 - 1.25)   # Y-координата
+        width = Inches(3)  # Ширина изображения
+        height = Inches(3)  # Высота изображения
+        pic3 = slide3.shapes.add_picture(image_path, left, top, width, height)
 
-        # if template_choice == 'dark_modern':
-        #     for paragraph in title.text_frame.paragraphs:
-        #         for run in paragraph.runs:
-        #             run.font.name = 'Times New Roman'
-        #             run.font.color.rgb = RGBColor(255, 165, 0)  # RGB for orange color
+        # Слайд 4
+        slide4 = prs.slides[3]
+        slide4.placeholders[1].text = self.content.get('solution')
+        left = Inches(13.33/2 + 3/2 + 1)  # X-координата
+        top = Inches(7.5/2 - 1.25)   # Y-координата
+        width = Inches(3)  # Ширина изображения
+        height = Inches(3)  # Высота изображения
+        pic4 = slide4.shapes.add_picture(image_path, left, top, width, height)
 
-        # add content slides
-        for slide_content in self.slides_content:
-            slide = prs.slides.add_slide(content_slide_layout)
-            for placeholder in slide.placeholders:
-                if placeholder.placeholder_format.type == 1:  # Title
-                    placeholder.text = slide_content['title']
-                    for paragraph in placeholder.text_frame.paragraphs:
-                        for run in paragraph.runs:
-                            run.font.name = 'Arial'
-                            # run.font.color.rgb = RGBColor(255, 165, 0)
-                            run.font.size = Pt(25)
-                elif placeholder.placeholder_format.type == 4:  # Content
-                    placeholder.text = slide_content['content']
-                    for paragraph in placeholder.text_frame.paragraphs:
-                        for run in paragraph.runs:
-                            run.font.name = 'Arial'
-                            # run.font.color.rgb = RGBColor(255, 255, 255)
-                            run.font.size = Pt(11)
+        # Слайд 5
+        # TAM CAM COM
 
-            if self.logo_path:
-                # add the image at the specified position
-                slide_width = Cm(16)
-                slide_height = Cm(9)
+        # Слайд 6
 
-                im = Image.open(self.logo_path)
-                width, height = im.size
+        slide6 = prs.slides[5]
+        x, y, cx, cy = Inches(3), Inches(2), Inches(8), Inches(6)
+        shape = slide6.shapes.add_table(9, 2, x, y, cx, cy)
 
-                image_width, image_height = Cm(width / 700), Cm(height / 700)
+        # Слайд 7
+        # Трекшн и финансы
 
-                left = slide_width - image_width + Cm(8)   # calculate left position
-                top = slide_height - image_height - Cm(5)  # calculate top position
+        # Слайд 8
+        slide8 = prs.slides[7]
+        slide8.placeholders[1].text = self.content.get('team')
 
-                slide.shapes.add_picture(self.logo_path,
-                                         left, top,
-                                         width=image_width,
-                                         height=image_height)
+        # Слайд 9
+        # Инвестиции
 
-        # Delete the first twelve slides after all new slides have been added
-        self.delete_first_slides(prs, 12)
+        # Слайд 10
+        slide10 = prs.slides[9]
+        slide10.placeholders[1].text = self.content.get('roadmap')
 
-        # Save the presentation
+        # Слайд 11
+        slide11 = prs.slides[10]
+        slide11.placeholders[1].text = self.content.get('contact_information')
+
         prs.save(self.presentation_path)
-        return prs
+
+    # def delete_first_slides(self, presentation, first_num):
+    #     slide_ids = reversed(range(first_num))
+    #     for slide_id in slide_ids:
+    #         if slide_id < len(presentation.slides):
+    #             xml_slides = presentation.slides._sldIdLst
+    #             slides = list(xml_slides)
+    #             xml_slides.remove(slides[slide_id])
+
+    # def create_ppt(self):
+    #     prs = Presentation(self.template)
+
+    #     content_slide_layout = prs.slide_layouts[1]
+
+    #     for slide_content in self.slides_content:
+    #         slide = prs.slides.add_slide(content_slide_layout)
+
+    #         for placeholder in slide.placeholders:
+    #             if placeholder.placeholder_format.type == 1:  # Title
+    #                 placeholder.left = Inches(1)
+    #                 placeholder.top = Inches(0.5)
+    #                 placeholder.width = Inches(5)
+    #                 placeholder.height = Inches(1)
+    #                 placeholder.text = slide_content['title']
+    #                 for paragraph in placeholder.text_frame.paragraphs:
+    #                     for run in paragraph.runs:
+    #                         run.font.name = 'Arial'
+    #                         run.font.size = Pt(25)
+    #             elif placeholder.placeholder_format.type == 4:  # Content
+
+    #                 placeholder.left = Inches(1)
+    #                 placeholder.top = Inches(1.25)
+    #                 placeholder.width = Inches(7)
+    #                 placeholder.height = Inches(4)
+    #                 placeholder.text = slide_content['content']
+    #                 for paragraph in placeholder.text_frame.paragraphs:
+    #                     for run in paragraph.runs:
+    #                         run.font.name = 'Arial'
+    #                         run.font.size = Pt(11)
+
+    #         if self.logo_path:
+    #             # add the image at the specified position
+    #             slide_width = Cm(16)
+    #             slide_height = Cm(9)
+
+    #             im = Image.open(self.logo_path)
+    #             width, height = im.size
+
+    #             image_width, image_height = Cm(width / 700), Cm(height / 700)
+
+    #             left = slide_width - image_width + Cm(8)   # calculate left position
+    #             top = slide_height - image_height - Cm(5)  # calculate top position
+
+    #             slide.shapes.add_picture(self.logo_path,
+    #                                      left, top,
+    #                                      width=image_width,
+    #                                      height=image_height)
+
+    #     # Delete the first twelve slides after all new slides have been added
+    #     self.delete_first_slides(prs, 12)
+
+    #     # Save the presentation
+    #     prs.save(self.presentation_path)

@@ -8,6 +8,7 @@ from django.conf import settings
 
 from .forms import PitchDeckForm
 from .generator import PitchDeckGenerator
+from .market_size import parse_money
 
 
 def index(request):
@@ -20,6 +21,7 @@ def pitch_deck(request):
     if request.method == 'POST':
         form = PitchDeckForm(request.POST)
         if form.is_valid():
+            print(form.cleaned_data)
             titles = [
                 'Название', 'Проблема', 'Описание', 'Решение',
                 'Размер рынка', 'Конкуренты', 'Бизнес модель',
@@ -28,22 +30,25 @@ def pitch_deck(request):
                 'Объем необходимых инвестиций, куда будут направлены средства',
                 'Роадмап', 'Контактная информация'
             ]
+
             content = list(form.cleaned_data.values())
             slides_content = [
                 {'title': i, 'content': j} for i, j in zip(titles, content)
             ]
+
+            print(slides_content)
 
             timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             title = f'presentation-{timestamp}'
             file_path = os.path.join('presentations', 'generated', f'{title}.pptx')
 
             generator = PitchDeckGenerator(
-                slides_content=slides_content,
-                template_name='simple',
+                content=form.cleaned_data,
+                template_name='shablon',
                 logo_path=os.path.join('presentations', 'logos', 'logo.png'),
                 presentation_path=file_path
             )
-            generator.create_ppt()
+            generator.create_pptx()
 
             with open(file_path, 'rb') as file:
                 pitch_deck = file.read()
