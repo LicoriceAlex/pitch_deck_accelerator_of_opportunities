@@ -119,6 +119,11 @@ class PitchDeckForm(forms.Form):
         help_text= 'Pre-seed, Series A, Series B, Series C',
         required=True
     )
+    investments = forms.CharField(
+        label='Куда вы потратите инвестиции',
+        help_text= 'Формат: маркетинг 0.4; разработка 0.3; себе 0.3',
+        required=True
+    )
     roadmap = forms.CharField(
         label='Роадмап',
         widget=forms.Textarea(attrs={'rows': '2'}),
