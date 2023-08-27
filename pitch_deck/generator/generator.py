@@ -11,6 +11,8 @@ from pptx.dml.color import RGBColor
 
 from django.conf import settings
 
+from .investments import make_req
+
 
 class PitchDeckGenerator:
     def __init__(self, content,
@@ -90,7 +92,17 @@ class PitchDeckGenerator:
         slide8.placeholders[1].text = self.content.get('team')
 
         # Слайд 9
-        # Инвестиции
+        slide9 = prs.slides[8]
+        left = Inches(2)  # X-координата
+        top = Inches(2)   # Y-координата
+        width = Inches(13.33 - 2 - 2)  # Ширина изображения
+        height = Inches(7.5 - 2 - 2)  # Высота изображения
+        desired_investments = self.content.get('desired_investments')
+        investment_round = self.content.get('investment_round')
+        investments = self.content.get('investments')
+        fig_path = make_req(desired_investments, investment_round, investments)
+        # fig_path = some_func() -> path
+        fig = slide9.shapes.add_picture(fig_path, left, top, width, height)
 
         # Слайд 10
         slide10 = prs.slides[9]
